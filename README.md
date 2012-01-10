@@ -20,15 +20,35 @@ You can see this call in the `App47Screen`'s constructor. Next, for session data
 
 
     public void deactivate() {
-	    EmbeddedAgent.onPause();
-	    super.deactivate();
+     EmbeddedAgent.onPause();
+	 super.deactivate();
     }
 
     public void activate() {
-	    EmbeddedAgent.onResume();
-   	    super.activate();
+	 EmbeddedAgent.onResume();
+   	 super.activate();
     }
- 
+
+For error reporting and appropriate app permissions, see the main hook's constructor:
+
+    public App47DemoApp() {
+     try {
+      ApplicationPermissionsManager permManager = ApplicationPermissionsManager.getInstance();
+
+      if (permManager.getPermission(ApplicationPermissions.PERMISSION_FILE_API) != ApplicationPermissions.VALUE_ALLOW) {
+       // Request our permission to inject events
+       ApplicationPermissions pAppPermission = new ApplicationPermissions();
+       pAppPermission.addPermission(ApplicationPermissions.PERMISSION_FILE_API);
+      }
+      pushScreen(new App47Screen());
+     } catch (Throwable e) {
+      if (!IOHelperLogAgent.hasCaughtUnhandled()) {
+       EmbeddedAgentLogger.wtf("Uncaught Exception! - " + e.getMessage(), null);
+       IOHelperLogAgent.setHasCaughtUnhandled(true);
+       HelperSessionAgent.onPauseSessionCheck(); // on pause won't be called
+     }
+     System.exit(1);
+    }  
 
 
 # License
