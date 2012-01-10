@@ -8,7 +8,27 @@ This example app demonstrates a working App47 monitored Blackberry app -- with i
   
   * Configuration/Configuration groups
   * Logging
-  * Events
+  * Events -- both timed and generic
+
+Additionally, you can use this app to see various meta data related to a particular app, including service endpoints, logging levels, device enablement, etc. 
+
+The [agent code](https://github.com/App47/blackberry-agent) itself isn't included -- you must build that yourself and configure it w/your appropriate App ID. Nevertheless, to configure a Blackberry App to use App47's agent, you should initialize an instance of EmbeddedAgent like so:
+
+`EmbeddedAgent.configureAgent();`
+
+You can see this call in the `App47Screen`'s constructor. Next, for session data, you'll need to hook into an app's lifecycle; thus, if you override the basic Blackberry app lifecycle methods `activate` and `deactivate` you can accordingly hook in session events like so:
+
+`
+public void deactivate() {
+	EmbeddedAgent.onPause();
+	super.deactivate();
+}
+
+public void activate() {
+	EmbeddedAgent.onResume();
+	super.activate();
+}
+` 
 
 
 # License
