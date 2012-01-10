@@ -29,7 +29,7 @@ You can see this call in the `App47Screen`'s constructor. Next, for session data
    	 super.activate();
     }
 
-For error reporting and appropriate app permissions, see the main hook's constructor:
+For App crash reporting and appropriate app permissions, see the main hook's constructor:
 
     public App47DemoApp() {
      try {
@@ -49,6 +49,8 @@ For error reporting and appropriate app permissions, see the main hook's constru
      }
      System.exit(1);
     }  
+
+For more information, check out [App47.com](http://app47.com) or follow us on [Twitter](http://twitter.com/app47info). 
 
 
 # License
