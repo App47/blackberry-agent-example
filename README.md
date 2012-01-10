@@ -18,17 +18,17 @@ The [agent code](https://github.com/App47/blackberry-agent) itself isn't include
 
 You can see this call in the `App47Screen`'s constructor. Next, for session data, you'll need to hook into an app's lifecycle; thus, if you override the basic Blackberry app lifecycle methods `activate` and `deactivate` you can accordingly hook in session events like so:
 
-`
-public void deactivate() {
-	EmbeddedAgent.onPause();
-	super.deactivate();
-}
 
-public void activate() {
-	EmbeddedAgent.onResume();
-	super.activate();
-}
-` 
+    public void deactivate() {
+	    EmbeddedAgent.onPause();
+	    super.deactivate();
+    }
+
+    public void activate() {
+	    EmbeddedAgent.onResume();
+   	    super.activate();
+    }
+ 
 
 
 # License
